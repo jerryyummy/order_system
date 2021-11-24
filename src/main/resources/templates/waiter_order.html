@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order System</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style2.css" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts start-->
+<link href='//fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Work+Sans:400,600,500,700,800,900,200,300' rel='stylesheet' type='text/css'>
+<!--//fonts-->
+<!--<script type="text/javascript" src="../static/js/jquery.js"></script>-->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+	
+</head>
+<body>
+<!--horizan start here-->
+<div class="top-navg ">
+	<div class="container">
+		<div class=" logo wow tada" data-wow-delay="0.3s">
+			<a href="waiter_index.html"><img src="../static/images/logo.png" alt=""></a>
+		</div>
+		<div class="navigation">	
+			<span class="menu-ic"><img src="../static/images/menu2.png" alt=""></span>
+			<div class="menu menu-li">
+					<ul class="menu-list">
+						<li class="menu-item"><a href="waiter_index.html" th:href="@{~/waiter/index}" class="menu-link">Home</a></li>
+						<li class="menu-item"><a href="waiter_info.html" th:href="@{~/waiter/info}" class="menu-link">Info</a></li>
+						<li class="menu-item menu-item-current"><a href="waiter_order.html" th:href="@{~/waiter/showOrder}" class="menu-link">Order</a></li>
+						<li class="menu-item"><a href="waiter_notice.html" th:href="@{~/waiter/notice}" class="menu-link">Notice</a></li>
+						<li class="menu-item"><a href="waiter_menu.html" th:href="@{~/waiter/showMenu}" class="menu-link">Show</a></li>
+						<li class="menu-item"><a href="waiter_pass.html" th:href="@{~/waiter/getDish}" class="menu-link">Get Dish</a></li>
+				</ul>
+			</div>
+
+			 <script>
+				   $( "span.menu-ic" ).click(function() {
+					 $( ".navigation ul" ).slideToggle( 300, function() {
+					 // Animation complete.
+					  });
+					 });
+				</script>
+	</div>
+		<ul class=" head-icons wow bounceInRight" data-wow-delay="0.3s">
+			<li type="button" class="btn btn-1 btn-warning"><a href="login.html" th:href="@{~/logout}"> 注销</a></li>
+			<!--				 		<li><a href="#"><span class="tw"> </span></a></li>-->
+		</ul>
+	<div class="clearfix"></div>
+</div>
+</div>
+
+<!--services start here-->
+<div class="main-grid-one3" id="three">
+
+	<div class="services">
+	    <div class="temp-heading">
+		    <h3 class="main-head">点餐界面</h3>
+		</div>
+		<div class="services-1">
+		   <div class="container"> 
+		   	 <div class="services-1-main">
+		   	 	<div class="col-md-4 service-grid wow bounceInDown" data-wow-delay="0.3s">
+					<button class="hi-icon hi-icon-archive"><span class="ser1"> </span></button>
+		   	 		<h3>分配桌号</h3>
+						<select class="custom-select" id="table_number" >
+							<option selected>Choose...</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+						</select>
+		   	 	</div>
+		   	 	<div class="col-md-4 service-grid wow bounceInLeft" data-wow-delay="0.3s">
+		   	 		<button class="hi-icon hi-icon-archive"><span class="ser2"> </span></button>
+		   	 		<h3>查看总价格</h3>
+		   	 		<p >总价格：<span id="total_price" >0</span></p>
+		   	 	</div>
+		   	 	<div class="col-md-4 service-grid wow bounceInUp" data-wow-delay="0.3s">
+					<button class="hi-icon hi-icon-archive" onclick="makeOrder()"><span class="ser3"> </span></button>
+		   	 		<h3>结账</h3>
+		   	 		<p>先买单再上菜</p>
+		   	 	</div>
+		   	  <div class="clearfix"> </div>
+		   	 </div>
+		   	 <div class="services-middle">
+		   	 	<h3>订单 显示</h3>
+				 <table class="table">
+					 <thead>
+					 <tr>
+						 <th scope="col">菜名</th>
+						 <th scope="col">数量</th>
+						 <th scope="col">状态</th>
+					 </tr>
+					 </thead>
+					 <tbody>
+					 <tr th:each="item:${session.list}">
+						 <td th:text="${item.getName()}" th:id="'dishName1'+${item.getDishId()}">1</th>
+						 <td th:text="${item.getAmount()}" th:id="'number1'+${item.getDishId()}">Otto</td>
+						 <td><button class="btn btn-danger" th:name="${item.getDishId()}" onclick="cancel(this.getAttribute('name'))">cancel</button></td>
+					 </tr>
+					 </tbody>
+				 </table>
+<!--		   	 	<div class="ser-mid-imgs">-->
+<!--			   	 	<div class="col-md-6 ser-mid-lft-img1 wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--			   	 		<img src="../static/images/plat3.png" alt="">-->
+<!--			   	 	</div>-->
+<!--			   	 	<div class="col-md-6 ser-mid-rit-img2 wow bounceInRight" data-wow-delay="0.3s">-->
+<!--			   	 		<img src="../static/images/plat2.png" alt="">-->
+<!--			   	 	</div>-->
+<!--			   	  <div class="clearfix"> </div>-->
+<!--		   	 	</div>-->
+<!--		   	     <h4>voluptatem accusantium doloremque laudantium</h4>-->
+<!--		   	     <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>-->
+		   	 </div>
+		   	 <div class="spl-offers">
+		   	 	<div class="col-md-8 spl-left">
+		   	 		<h3>今日 特供</h3>
+<!--		   	 	    <div class="col-md-6 spl-left-img wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--		   	 	    	<a href="#"><img src="../static/images/barger.png" alt=""></a>-->
+<!--		   	 	    </div>-->
+<!--		   	 	    <div class="col-md-6 spl-left-text wow bounceInDown" data-wow-delay="0.3s">-->
+<!--		   	 	    	<p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>-->
+<!--		   	 	    </div>-->
+					<div id="carouselExampleInterval" class="carousel slide spl-left col-md-8" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active" data-interval="2000">
+								<img src="../static/images/plat2.png" class="d-block w-100 spl-left-img" alt="...">
+								<div class="carousel-caption d-none d-md-block" style="color: orange">
+									<h5>First slide label</h5>
+								</div>
+							</div>
+							<div class="carousel-item" data-interval="2000">
+								<img src="../static/images/plat3.png" class="d-block w-100 spl-left-img" alt="...">
+								<div class="carousel-caption d-none d-md-block" style="color: orange">
+									<h5>First slide label</h5>
+								</div>
+							</div>
+							<div class="carousel-item" data-interval="2000">
+								<img src="../static/images/barger.png" class="d-block w-100 spl-left-img" alt="...">
+								<div class="carousel-caption d-none d-md-block" style="color: orange">
+									<h5>First slide label</h5>
+								</div>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+		   	 	  <div class="clearfix"> </div>
+		   	 	</div>
+		   	 	<div class="col-md-4 spl-right wow bounceInRight" data-wow-delay="0.3s">
+		   	 		<h3>Something To Say</h3>
+					<p>Enjoy yourself.</p>
+<!--		   	 		  <ul>-->
+<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
+<!--		   	 		  	<li><a href="#">Lorem ipsum dolor sit amet</a></li>-->
+<!--		   	 		  	<li><a href="#">Consectetur adipiscing elit</a></li>-->
+<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
+<!--		   	 		  	<li><a href="#">sed eiusmod tempor incididunt</a></li>-->
+<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
+<!--						<li><a href="#">sed eiusmod tempor incididunt</a></li>-->
+<!--		   	 		  </ul>-->
+		   	 	</div>
+		   	  <div class="clearfix"> </div>
+		   	 </div>
+		   </div>	
+		</div>
+		<br/>
+<!--addition services-->
+		<div class="addition">
+		   <div class="container">
+				<h3>菜品列表</h3>
+			   <div>
+				   <table class="table">
+					   <thead>
+					   <tr>
+						   <th scope="col">菜名</th>
+						   <th scope="col">价格</th>
+						   <th scope="col">数量</th>
+						   <th scope="col"> 状态</th>
+					   </tr>
+					   </thead>
+					   <tbody>
+					   <tr th:each="item: ${dishlist}">
+						   <th scope="row" th:text="${item.getName()}" th:id="'dishName'+${item.getDishid()}">宫保鸡丁</th>
+						   <td th:text="${item.getPrice()}" th:id="'price'+${item.getDishid()}">25.0</td>
+						   <td ><input th:id="'number'+${item.getDishid()}" type="number" ></td>
+						   <td><button class="btn btn-success" th:name="${item.getDishid()}" onclick="order(this.getAttribute('name'))">点菜</button></td>
+					   </tr>
+					   </tbody>
+				   </table>
+<!--				   <nav aria-label="Page navigation example">-->
+<!--					   <ul class="pagination justify-content-center">-->
+<!--						   <li class="page-item disabled">-->
+<!--							   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--						   </li>-->
+<!--						   <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--						   <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--						   <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--						   <li class="page-item">-->
+<!--							   <a class="page-link" href="#">Next</a>-->
+<!--						   </li>-->
+<!--					   </ul>-->
+<!--				   </nav>-->
+			   </div>
+			   <!--				<div class="addition-main">-->
+<!--					<div class="col-md-6 addition-left wow bounceInRight" data-wow-delay="0.3s">-->
+<!--						<div class="cantin">-->
+<!--							<div class="cantin-icons">-->
+<!--								<span class="ser-icon1"> </span>-->
+<!--							</div>	-->
+<!--							<div class="cantin-text">-->
+<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
+<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
+<!--							</div>-->
+<!--						  <div class="clearfix"> </div>-->
+<!--						</div>-->
+<!--						<div class="cantin">-->
+<!--							<div class="cantin-icons">-->
+<!--								<span class="ser-icon2"> </span>-->
+<!--							</div>	-->
+<!--							<div class="cantin-text">-->
+<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
+<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
+<!--							</div>-->
+<!--						  <div class="clearfix"> </div>-->
+<!--						</div>-->
+<!--						<div class="cantin">-->
+<!--							<div class="cantin-icons">-->
+<!--								<span class="ser-icon3"> </span>-->
+<!--							</div>	-->
+<!--							<div class="cantin-text">-->
+<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
+<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
+<!--							</div>-->
+<!--						  <div class="clearfix"> </div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="col-md-6 addition-right wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--						<a href="detail.html"><img src="../static/images/ad.jpg" alt="" class="img-responsive"></a>-->
+<!--					</div>-->
+<!--				<div class="clearfix"> </div>-->
+<!--			</div>-->
+		 </div>
+	   </div>
+	    </div>
+
+<!--footer end here-->
+<!--    <div class="footer">-->
+<!--		<div class="container">-->
+<!--			<div class="footer-main">-->
+<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
+<!--				<h4>Information</h4>-->
+<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
+<!--				<ul class="social">-->
+<!--					<li><span> </span>sector 21 , main road </li>-->
+<!--					<li class="phone"><span> </span> +71999-56985</li>-->
+<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
+<!--				</ul>-->
+<!--				</div>-->
+<!--				 -->
+<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
+<!--				 	<h4>Newsletter</h4>-->
+<!--				 	<form>-->
+<!--				 		<input type="text"  placeholder="Email Address" required="">-->
+<!--				 		<input type="submit" value="subscribe">-->
+<!--			 	</form>-->
+<!--				 </div>-->
+<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--				 	<ul class="ftr-nav">-->
+<!--				 		<li><a href="index.html">Home</a></li>-->
+<!--						<li><a href="waiter_info.html">About</a></li>-->
+<!--						<li><a href="waiter_order.html">Services</a></li>-->
+<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
+<!--						<li><a href="menu.html">Menu</a></li>-->
+<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
+<!--				 	</ul>-->
+<!--				 </div>-->
+<!--			 <div class="clearfix"> </div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--    </div>-->
+    <div class="copy-right wow shake" data-wow-delay="0.3s">
+		<p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
+    </div>
+   
+</div>
+
+
+<!-- animated-css -->
+	<link href="../static/css/animate.css" rel="stylesheet" type="text/css" media="all">
+	<script src="../static/js/wow.min.js"></script>
+		<script>
+		 new WOW().init();
+		 function order(dishId) {//点菜
+		 	var name = $("#dishName"+dishId).val();
+			var amount = $('#number'+dishId).val();
+			var dishid = dishId;
+			var price = $("#price"+dishId).val();
+			var total = amount*price;
+			$.ajax({
+				 url: '/waiter/addDish',
+				 type: 'post',
+				 data: {
+						amount: amount,
+						dishId: dishid
+				 },
+				 success: function () {
+				 	location.href="addDish?amount="+amount+'&dishId='+dishId;
+				 },
+				 error: function () {
+					 alert("error")
+				 }
+			 });
+		 }
+
+		 function cancel(dishId){//取消
+			 var name = $("#dishName1"+dishId).val();
+			 var amount = $('#number1'+dishId).val();
+			 console.log(name);
+			 $.ajax({
+				 url: '/waiter/deleteDish',
+				 type: 'post',
+				 data: {
+					 amount: amount,
+					 dishId: dishId
+				 },
+				 success: function () {
+					 location.href="deleteDish?amount="+amount+'&dishId='+dishId;
+				 },
+				 error: function () {
+					 alert("error")
+				 }
+			 });
+		 }
+
+		 function makeOrder() {
+		 	var total_price = $('#total_price').val();
+		 	var table_number = $('#table_number').val();
+		 	var orderId = total_price+table_number;
+			 $.ajax({
+				 url: '/waiter/makeOrder',
+				 type: 'post',
+				 data: {
+					 total_price: total_price,
+					 table_number: table_number,
+					 orderId: orderId
+				 },
+				 success: function () {
+					 location.href="makeOrder?sum="+total_price+'&orderId='+orderId+'&table_number='+table_number;
+				 },
+				 error: function () {
+					 alert("error")
+				 }
+			 });
+		 }
+		</script>
+<!-- animated-css -->
+
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order System</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style2.css" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+	function changeImage() {
+	var file_url = $("#inputGroupFile").val();//获取图像url
+	var userId = [[${session.user_session.userid}]];
+	location.href="changeImage?userId="+userId+"&url="+file_url;
+
+}
+
+addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts start-->
+<link href='//fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Work+Sans:400,600,500,700,800,900,200,300' rel='stylesheet' type='text/css'>
+<!--//fonts-->
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+
+
+</head>
+<body>
+<!--horizan start here-->
+<div class="top-navg ">
+	<div class="container">
+		<div class=" logo wow tada" data-wow-delay="0.3s">
+			<a href="waiter_index.html"><img src="../static/images/logo.png" alt=""></a>
+		</div>
+		<div class="navigation">	
+			<span class="menu-ic"><img src="../static/images/menu2.png" alt=""></span>
+			<div class="menu menu-li">
+				<ul class="menu-list">
+					<li class="menu-item"><a href="waiter_index.html" th:href="@{~/waiter/index}" class="menu-link">Home</a></li>
+					<li class="menu-item menu-item-current"><a href="waiter_info.html" th:href="@{~/waiter/info}" class="menu-link">Info</a></li>
+					<li class="menu-item"><a href="waiter_order.html" th:href="@{~/waiter/showOrder}" class="menu-link">Order</a></li>
+					<li class="menu-item"><a href="waiter_notice.html" th:href="@{~/waiter/notice}" class="menu-link">Notice</a></li>
+					<li class="menu-item"><a href="waiter_menu.html" th:href="@{~/waiter/showMenu}" class="menu-link">Show</a></li>
+					<li class="menu-item"><a href="waiter_pass.html" th:href="@{~/waiter/getDish}" class="menu-link">Get Dish</a></li>
+				</ul>
+			</div>
+
+			 <script>
+				   $( "span.menu-ic" ).click(function() {
+					 $( ".navigation ul" ).slideToggle( 300, function() {
+					 // Animation complete.
+					  });
+					 });
+				</script>
+	</div>
+		<ul class=" head-icons wow bounceInRight" data-wow-delay="0.3s">
+			<li type="button" class="btn btn-1 btn-warning"><a href="login.html" th:href="@{~/logout}"> 注销</a></li>
+			<!--				 		<li><a href="#"><span class="tw"> </span></a></li>-->
+		</ul>
+	<div class="clearfix"></div>
+</div>
+</div>
+
+
+<!-- about start here-->
+<div class="main-grid-one2" id="two">
+	<div class="about">
+	    <div class="temp-heading">
+		    <h3 class="main-head">个人信息</h3>
+		</div>
+		<div class="about-1">
+		   <div class="container"> 
+		   	 <div class="about-1-main">		   	 	   	 	 	  
+	   	 	 	<div class="col-md-6 about-right wow bounceInDown" data-wow-delay="0.3s">
+					<p>
+					<ul class="list-group">
+						<li class="list-group-item" id="userId" th:text="${user.getUserid()}">用户id</li>
+						<li class="list-group-item" id="username" th:text="${user.getUsername()}">用户名</li>
+						<li class="list-group-item">工作状态： 在职</li>
+					</ul>
+					<input type="file" class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFileAddon">
+					<br/>
+					<button class="btn btn-primary" type="button" id="inputGroupFileAddon" onclick="changeImage()">上传头像</button>
+					</p>
+				</div>
+	   	 	 	<div class="col-md-6 about-left wow bounceInUp" data-wow-delay="0.3s">
+					<figure>
+						<img src="../static/images/a1.jpg" th:src="${user.getUrl_image()}" alt="没有上传图片" class="img_responsive">
+					</figure>
+	   	 	 	</div>
+	   	 	  <div class="clearfix"> </div>
+		   	 </div>
+		   	 <div class="about-bottom">
+			      <div class="delivery-info">											
+<!--							<div class="delivery-top">-->
+<!--								<h3>Information About Me</h3>-->
+<!--							</div>-->
+							<div class="delivery-bottom">
+<!--								<div class="col-md-6 deliver-left wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--									<figure>-->
+<!--										<img src="../static/images/a2.jpg" alt="" class="img_responsive">-->
+<!--									</figure>-->
+<!--								</div>-->
+								<div class="col-md-12 delivery-right wow bounceInRight" data-wow-delay="0.3s">
+									<h6> 修改密码 </h6>
+										<div class="form-group">
+											<label>原密码</label>
+											<input type="text" class="form-control" id="primary_password">
+										</div>
+										<div class="form-group">
+											<label>新密码</label>
+											<input type="password" class="form-control" id="new_password1">
+										</div>
+										<div class="form-group">
+											<label>再次输入新密码</label>
+											<input type="password" class="form-control" id="new_password2">
+										</div>
+										<button class="btn-lg btn-primary" onclick="changePassword()">修改</button>
+								</div>
+								<div class="clearfix"> </div>
+						  </div>
+				   </div>
+		      </div>
+			 
+<!--		      <div class="testimonial" style="background: #2b542c">-->
+<!--		      	 <h3>证明书</h3>-->
+<!--		      	 <p>米其林三星餐厅验证.</p>-->
+<!--		      	 <h4>Bonorum</h4>-->
+<!--		      </div>-->
+		      <div class="team">
+		      	 <h3>优秀员工</h3>
+		      	 	 	<ul class="ch-grid wow bounceInDown" data-wow-delay="0.3s">
+						<li>
+							<a href="#"><div class="ch-item ch-img-1 wow bounceIn" data-wow-delay="0.4s">
+								<div class="ch-info" >
+								</div>						
+							</div></a>
+								<h5><a href="#">Rackham</a></h5>
+							<!--								<p>There are many variations of passages</p>-->
+							<ul class="social-ic">
+								<li>
+									<a href="#"><i class="icon1">
+									</i></a>
+								</li>
+								<li>
+									<a href="#"><i class="icon1 icon2">
+									</i></a>
+								</li>
+								<li>
+									<a href="#"><i class="icon1 icon3">
+									</i></a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><div class="ch-item ch-img-2 wow bounceIn" data-wow-delay="0.4s">
+								<div class="ch-info">
+															
+								</div>
+							</div></a>
+								<h5><a href="#">Malorum</a></h5>
+							<!--								<p>There are many variations of passages</p>-->
+							<ul class="social-ic">
+								<li>
+									<a href="#"><i class="icon1">
+									</i></a>
+								</li>
+								<li>
+									<a href="#"><i class="icon1 icon2">
+									</i></a>
+								</li>
+								<li>
+									<a href="#"><i class="icon1 icon3">
+									</i></a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><div class="ch-item ch-img-3 wow bounceIn" data-wow-delay="0.4s">
+								<div class="ch-info">
+															
+								</div>
+							</div></a>
+								<h5><a href="#">Finibus</a></h5>
+<!--								<p>There are many variations of passages</p>-->
+								<ul class="social-ic">
+									<li>
+										<a href="#"><i class="icon1">
+										</i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon1 icon2">
+										</i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon1 icon3">
+										</i></a>
+									</li>
+								</ul>
+						</li>
+						<li class="no-mar">
+							<a href="#"><div class="ch-item ch-img-4 wow bounceIn" data-wow-delay="0.4s">
+								<div class="ch-info">
+																
+								</div>
+							</div></a>
+								<h5><a href="#">Bonorum</a></h5>
+<!--								<p>There are many variations of passages</p>-->
+								<ul class="social-ic">
+									<li>
+										<a href="#"><i class="icon1">
+										</i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon1 icon2">
+										</i></a>
+									</li>
+									<li>
+										<a href="#"><i class="icon1 icon3">
+										</i></a>
+									</li>
+								</ul>
+						</li>
+				 </ul>
+
+		      	 	  <div class="clearfix"> </div>
+		      	</div>		      
+		   </div>	
+		</div>
+
+
+</div>
+<!--footer end here-->
+<!--    <div class="footer">-->
+<!--		<div class="container">-->
+<!--			<div class="footer-main">-->
+<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
+<!--				<h4>Information</h4>-->
+<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
+<!--				<ul class="social">-->
+<!--					<li><span> </span>sector 21 , main road </li>-->
+<!--					<li class="phone"><span> </span> +71999-56985</li>-->
+<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
+<!--				</ul>-->
+<!--				</div>-->
+<!--				 -->
+<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
+<!--				 	<h4>Newsletter</h4>-->
+<!--				 	<form>-->
+<!--				 		<input type="text"  placeholder="Email Address" required="">-->
+<!--				 		<input type="submit" value="subscribe">-->
+<!--			 	</form>-->
+<!--				 </div>-->
+<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--				 	<ul class="ftr-nav">-->
+<!--				 		<li><a href="index.html">Home</a></li>-->
+<!--						<li><a href="waiter_info.html">About</a></li>-->
+<!--						<li><a href="waiter_order.html">Services</a></li>-->
+<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
+<!--						<li><a href="menu.html">Menu</a></li>-->
+<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
+<!--				 	</ul>-->
+<!--				 </div>-->
+<!--			 <div class="clearfix"> </div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--    </div>-->
+    <div class="copy-right wow shake" data-wow-delay="0.3s">
+		<p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
+    </div>
+   
+<!--//about-->
+
+</div>
+
+<!-- animated-css -->
+		<link href="../static/css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="../static/js/wow.min.js"></script>
+		<script type="text/javascript" th:inline="javascript">
+		 new WOW().init();
+
+		 function changePassword(){//更改密码
+			 /*<![CDATA[*/
+			 var userId=[[${session.user_session.userid}]];
+			 var pripass=[[${session.user_session.password}]];
+			 /*]]>*/
+		 	var primary_password = $("#primary_password").val();
+		 	var password1 = $("#new_password1").val();
+		 	var password2 = $("#new_password2").val();
+		 	if (primary_password!=pripass){
+		 		alert("原密码错误");
+			}
+		 	else if (password1!=password2){
+		 		alert("两次密码要一致");
+			}
+		 	else {
+		 		$.ajax({
+					url: '/waiter/changePassword',
+					type: 'post',
+					data: {
+						userId: userId,
+						password: password1
+					},
+					success: function () {
+						location.href="changePassword?userId="+userId+"&passward="+password1;
+					},
+					error: function () {
+						alert("error")
+					}
+				})
+
+			}
+		 }
+		</script>
+<!-- animated-css -->
+
+
+</body>
+</html>

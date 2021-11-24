@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ordersystem.dao.DishDao">
+
+    <resultMap type="com.ordersystem.entity.Dish" id="DishMap">
+        <result property="dishid" column="dishId" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="isRecommend" column="isRecommend" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
+        <result property="urlDish" column="url_dish" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DishMap">
+        select dishId,
+               name,
+               introduce,
+               isRecommend,
+               price,
+               url_dish
+        from order_system.dish
+        where dishId = #{dishid}
+    </select>
+
+    <select id="queryByName" resultMap="DishMap">
+        select dishId,
+               name,
+               introduce,
+               isRecommend,
+               price,
+               url_dish
+        from order_system.dish
+        where name = #{name}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryRecommendDish" resultMap="DishMap">
+        select dishId,
+               name,
+               introduce,
+               isRecommend,
+               price,
+               url_dish
+        from order_system.dish
+        <where>
+            isRecommend = 1
+        </where>
+    </select>
+
+    <select id="queryNormalDish" resultMap="DishMap">
+        select dishId,
+        name,
+        introduce,
+        isRecommend,
+        price,
+        url_dish
+        from order_system.dish
+        <where>
+            isRecommend = 0
+        </where>
+    </select>
+
+
+    <select id="queryAll" resultMap="DishMap">
+        select
+        dishId, name, introduce, isRecommend, price, url_dish
+        from order_system.dish
+<!--        <where>-->
+<!--            <if test="dishid != null and dishid != ''">-->
+<!--                and dishId = #{dishid}-->
+<!--            </if>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                and name = #{name}-->
+<!--            </if>-->
+<!--            <if test="introduce != null and introduce != ''">-->
+<!--                and introduce = #{introduce}-->
+<!--            </if>-->
+<!--            <if test="isrecommend != null">-->
+<!--                and isRecommend = #{isrecommend}-->
+<!--            </if>-->
+<!--            <if test="price != null">-->
+<!--                and price = #{price}-->
+<!--            </if>-->
+<!--            <if test="urlDish != null and urlDish != ''">-->
+<!--                and url_dish = #{urlDish}-->
+<!--            </if>-->
+<!--        </where>-->
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="dishid" useGeneratedKeys="true">
+        insert into order_system.dish(dishId, name, introduce, isRecommend, price, url_dish)
+        values (#{dishid}, #{name}, #{introduce}, #{isRecommend}, #{price}, #{urlDish})
+    </insert>
+
+<!--    <insert id="insertBatch" keyProperty="dishid" useGeneratedKeys="true">-->
+<!--        insert into order_system.dish(name, introduce, isRecommend, price, url_dish)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.name}, #{entity.introduce}, #{entity.isrecommend}, #{entity.price}, #{entity.urlDish})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+<!--    <insert id="insertOrUpdateBatch" keyProperty="dishid" useGeneratedKeys="true">-->
+<!--        insert into order_system.dish(name, introduce, isRecommend, price, url_dish)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.name}, #{entity.introduce}, #{entity.isrecommend}, #{entity.price}, #{entity.urlDish})-->
+<!--        </foreach>-->
+<!--        on duplicate key update-->
+<!--        name = values(name) , introduce = values(introduce) , isRecommend = values(isRecommend) , price = values(price) ,-->
+<!--        url_dish = values(url_dish)-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash;通过主键修改数据&ndash;&gt;-->
+<!--    <update id="update">-->
+<!--        update order_system.dish-->
+<!--        <set>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                name = #{name},-->
+<!--            </if>-->
+<!--            <if test="introduce != null and introduce != ''">-->
+<!--                introduce = #{introduce},-->
+<!--            </if>-->
+<!--            <if test="isrecommend != null">-->
+<!--                isRecommend = #{isrecommend},-->
+<!--            </if>-->
+<!--            <if test="price != null">-->
+<!--                price = #{price},-->
+<!--            </if>-->
+<!--            <if test="urlDish != null and urlDish != ''">-->
+<!--                url_dish = #{urlDish},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where dishId = #{dishid}-->
+<!--    </update>-->
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from order_system.dish
+        where dishId = #{dishid}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order System</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="order system" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts start-->
+<link href='//fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+<!--//fonts-->
+<!-- start-smoth-scrolling -->
+</head>
+<body>
+<!--horizan start here-->
+<div class="top-navg">
+	<div class="container">
+		<div class=" logo wow tada" data-wow-delay="0.3s">
+			<a href="waiter_index.html"><img src="../static/images/logo.png" alt=""></a>
+		</div>
+		<div class="navigation">	
+			<span class="menu-ic"><img src="../static/images/menu2.png" alt=""></span>
+			<div class="menu menu-li">
+				<ul class="menu-list">
+					<li class="menu-item"><a href="waiter_index.html" th:href="@{~/waiter/index}" class="menu-link">Home</a></li>
+					<li class="menu-item"><a href="waiter_info.html" th:href="@{~/waiter/info}" class="menu-link">Info</a></li>
+					<li class="menu-item"><a href="waiter_order.html" th:href="@{~/waiter/showOrder}" class="menu-link">Order</a></li>
+					<li class="menu-item"><a href="waiter_notice.html" th:href="@{~/waiter/notice}" class="menu-link">Notice</a></li>
+					<li class="menu-item"><a href="waiter_menu.html" th:href="@{~/waiter/showMenu}" class="menu-link">Show</a></li>
+					<li class="menu-item"><a href="waiter_pass.html" th:href="@{~/waiter/getDish}" class="menu-link">Get Dish</a></li>
+				</ul>
+			</div>
+
+			 <script>
+				   $( "span.menu-ic" ).click(function() {
+					 $( ".navigation ul" ).slideToggle( 300, function() {
+					 // Animation complete.
+					  });
+					 });
+				</script>
+	</div>
+		<ul class=" head-icons wow bounceInRight" data-wow-delay="0.3s">
+			<li type="button" class="btn btn-1 btn-warning"><a href="login.html" th:href="@{~/logout}"> 注销</a></li>
+			<!--				 		<li><a href="#"><span class="tw"> </span></a></li>-->
+		</ul>
+	<div class="clearfix"></div>
+</div>
+</div>
+<!--header end here-->
+<!--single page start here-->
+<div class="single">
+	<div class="container">
+					<div class="blog-to">		
+					
+						<img id="dish_url" class="img-responsive sin-on wow bounceInLeft" data-wow-delay="0.3s" src="../static/images/b1.jpg" th:src="${dish.getUrlDish()}" alt="没有上传图片" />
+							<div class="blog-top">
+						
+							<div class="top-blog wow bounceInDown" data-wow-delay="0.3s">
+								<h4 id="name" th:text="${dish.getName()}">It is a long established fact that a reader will be distracted</h4>
+								<p class="sed2" id="intro" th:text="${dish.getIntroduce()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+									 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap.
+									 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+									 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap.</p>
+<!--								<div class="md-in">-->
+<!--								<ul class="grid-part">-->
+<!--									<li><a href="#">Sed ut perspiciatis unde omnis</a></li>-->
+<!--									<li><a href="#"> Lorem ipsum dolor sit amet  </a></li>-->
+<!--									<li><a href="#"> Sed ut perspiciatis unde omnis</a></li>-->
+<!--									<li><a href="#">Lorem ipsum dolor sit amet  </a></li>-->
+<!--									<li><a href="#">Sed ut perspiciatis unde omnis</a></li>-->
+<!--								</ul>-->
+<!--								</div>-->
+<!--								<div class="md-in-rit">-->
+<!--								<ul class="grid-part">-->
+<!--									<li><a href="#">Sed ut perspiciatis unde omnis</a></li>-->
+<!--									<li><a href="#">Lorem ipsum dolor sit amet,  </a></li>-->
+<!--									<li><a href="#">Sed ut perspiciatis unde omnis</a></li>-->
+<!--									<li><a href="#">Lorem ipsum dolor sit amet  </a></li>-->
+<!--									<li><a href="#">Sed ut perspiciatis unde omnis</a></li>-->
+<!--								</ul>-->
+<!--								</div>-->
+						    <div class="clearfix"> </div>
+							</div>
+							
+					</div>
+					</div>
+						<div class="admin wow bounceInUp" data-wow-delay="0.3s">
+							<p>永远尽心尽力为您提供最周到的服务.</p>
+						</div>
+					
+		<div class="single-middle">			
+			<h1>Comments</h1>
+				<div class="media wow bounceInlLeft" data-wow-delay="0.3s">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="../static/images/co.png" alt="">
+					</a>
+				  </div>
+				  <div class="media-body">
+					<h4 class="media-heading"><a href="#">Richard Spark</a></h4>
+						<p>Soooooooooooooooo delicious! </p>
+				  </div>
+				</div>
+				<div class="media in-media wow bounceInDown" data-wow-delay="0.3s">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="../static/images/co.png" alt="">
+					</a>
+				  </div>
+				   <div class="media-body">
+					<h4 class="media-heading"><a href="#">Joseph Goh</a></h4>
+						<p>A nice try</p>
+				  </div>
+				</div>
+				<div class="media wow bounceInRight" data-wow-delay="0.3s">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="../static/images/co.png" alt="">
+					</a>
+				  </div>
+				  <div class="media-body">
+					<h4 class="media-heading"><a href="#">Melinda Dee</a></h4>
+						<p>You will never forget it .</p>
+				  </div>
+				</div>
+			
+		</div>
+		<!---->
+<!--		<div class="single-bottom wow bounceInDown" data-wow-delay="0.3s">-->
+<!--		-->
+<!--			<h2>Leave a Comment</h2>-->
+<!--				<form>-->
+<!--						<div class="comment">-->
+<!--						<input type="text" placeholder="Name" required="">-->
+<!--						</div>-->
+<!--						<div class="comment">-->
+<!--						<input type="text" placeholder="Email" required="">-->
+<!--						</div>-->
+<!--						<div class="comment">-->
+<!--						<input type="text" placeholder="Subject" required="">-->
+<!--						</div>-->
+<!--						<div class="clearfix"> </div>-->
+<!--						<textarea cols="77" rows="6" placeholder="Message" required=""></textarea>-->
+<!--							<input type="submit" value="Send" >-->
+<!--				</form>-->
+<!--			</div>-->
+		</div>
+</div>
+<!--single page end here-->
+<!--footer end here-->
+<!--    <div class="footer">-->
+<!--		<div class="container">-->
+<!--			<div class="footer-main">-->
+<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
+<!--				<h4>Information</h4>-->
+<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
+<!--				<ul class="social">-->
+<!--					<li><span> </span>sector 21 , main road </li>-->
+<!--					<li class="phone"><span> </span> +71999-56985</li>-->
+<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
+<!--				</ul>-->
+<!--				</div>-->
+<!--				 -->
+<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
+<!--				 	<h4>Newsletter</h4>-->
+<!--				 	<form>-->
+<!--				 		<input type="text"  placeholder="Email Address" required="">-->
+<!--				 		<input type="submit" value="subscribe">-->
+<!--			 	</form>-->
+<!--				 </div>-->
+<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--				 	<ul class="ftr-nav">-->
+<!--				 		<li><a href="index.html">Home</a></li>-->
+<!--						<li><a href="waiter_info.html">About</a></li>-->
+<!--						<li><a href="waiter_order.html">Services</a></li>-->
+<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
+<!--						<li><a href="menu.html">Menu</a></li>-->
+<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
+<!--				 	</ul>-->
+<!--				 </div>-->
+<!--			 <div class="clearfix"> </div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--    </div>-->
+    <div class="copy-right wow shake" data-wow-delay="0.3s">
+    	 <p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
+    </div>
+<!-- animated-css -->
+		<link href="../static/css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="../static/js/wow.min.js"></script>
+		<script>
+		 new WOW().init();
+		</script>
+<!-- animated-css -->
+</body>
+</html>

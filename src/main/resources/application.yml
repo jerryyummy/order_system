@@ -1,0 +1,19 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: OrderSystem
+  datasource:
+    password: 461697582yy
+    url: jdbc:mysql://localhost:3306/order_system
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+    encoding: UTF-8

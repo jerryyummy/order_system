@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ordersystem.dao.OrderDao">
+
+    <resultMap type="com.ordersystem.entity.Order" id="OrderMap">
+        <result property="orderid" column="orderId" jdbcType="VARCHAR"/>
+        <result property="userid" column="userId" jdbcType="VARCHAR"/>
+        <result property="tableNumber" column="table_number" jdbcType="VARCHAR"/>
+        <result property="sum" column="sum" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select orderId,
+               userId,
+               table_number,
+               sum,
+               status
+        from order_system.order
+        where orderId = #{orderid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryUnconfirmedOrder" resultMap="OrderMap">
+        select orderId,
+               userId,
+               table_number,
+               sum,
+               status
+        from order_system.order
+        <where>
+            status = 0
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderMap">
+        select
+        orderId, userId, table_number, sum, status
+        from order_system.order
+<!--        <where>-->
+<!--            <if test="orderid != null and orderid != ''">-->
+<!--                and orderId = #{orderid}-->
+<!--            </if>-->
+<!--            <if test="userid != null and userid != ''">-->
+<!--                and userId = #{userid}-->
+<!--            </if>-->
+<!--            <if test="tableNumber != null and tableNumber != ''">-->
+<!--                and table_number = #{tableNumber}-->
+<!--            </if>-->
+<!--            <if test="sum != null">-->
+<!--                and sum = #{sum}-->
+<!--            </if>-->
+<!--            <if test="status != null">-->
+<!--                and status = #{status}-->
+<!--            </if>-->
+<!--            <if test="createtime != null and createtime != ''">-->
+<!--                and createTime = #{createtime}-->
+<!--            </if>-->
+<!--            <if test="updatetime != null and updatetime != ''">-->
+<!--                and updateTime = #{updatetime}-->
+<!--            </if>-->
+<!--        </where>-->
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="orderid" useGeneratedKeys="true">
+        insert into order_system.order(userId, table_number, sum, status)
+        values (#{userid}, #{tableNumber}, #{sum}, 0)
+    </insert>
+
+<!--    <insert id="insertBatch" keyProperty="orderid" useGeneratedKeys="true">-->
+<!--        insert into order_system.order(userId, table_number, sum, status, createTime, updateTime)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.userid}, #{entity.tableNumber}, #{entity.sum}, #{entity.status}, #{entity.createtime},-->
+<!--            #{entity.updatetime})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+<!--    <insert id="insertOrUpdateBatch" keyProperty="orderid" useGeneratedKeys="true">-->
+<!--        insert into order_system.order(userId, table_number, sum, status, createTime, updateTime)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.userid}, #{entity.tableNumber}, #{entity.sum}, #{entity.status}, #{entity.createtime},-->
+<!--            #{entity.updatetime})-->
+<!--        </foreach>-->
+<!--        on duplicate key update-->
+<!--        userId = values(userId) , table_number = values(table_number) , sum = values(sum) , status = values(status) ,-->
+<!--        createTime = values(createTime) , updateTime = values(updateTime)-->
+<!--    </insert>-->
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update order_system.order
+        <set>
+            <if test="userid != null and userid != ''">
+                userId = #{userid},
+            </if>
+            <if test="tableNumber != null and tableNumber != ''">
+                table_number = #{tableNumber},
+            </if>
+            <if test="sum != null">
+                sum = #{sum},
+            </if>
+            <if test="status == 0">
+                status = 1,
+            </if>
+        </set>
+        where orderId = #{orderid}
+    </update>
+
+    <!--通过主键删除-->
+<!--    <delete id="deleteById">-->
+<!--        delete-->
+<!--        from order_system.order-->
+<!--        where orderId = #{orderid}-->
+<!--    </delete>-->
+
+</mapper>
+

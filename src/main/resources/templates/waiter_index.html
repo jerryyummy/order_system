@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order System</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style2.css" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts start-->
+<link href='//fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Work+Sans:400,600,500,700,800,900,200,300' rel='stylesheet' type='text/css'>
+<!--//fonts-->
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+	<!-- start-smoth-scrolling -->
+</head>
+<body>
+<div class="adcenter"></div>
+<!--horizan start here-->
+<div class="top-navg ">
+	<div class="container">
+		<div class=" logo wow tada" data-wow-delay="0.3s">
+			<a href="waiter_index.html"><img src="../static/images/logo.png" alt=""></a>
+		</div>
+		<div class="navigation">	
+			<span class="menu-ic"><img src="../static/images/menu2.png" alt=""></span>
+			<div class="menu menu-li">
+				<ul class="menu-list">
+					<li class="menu-item menu-item-current"><a href="waiter_index.html" th:href="@{~/waiter/index}" class="menu-link">Home</a></li>
+					<li class="menu-item"><a href="waiter_info.html" th:href="@{~/waiter/info}" class="menu-link">Info</a></li>
+					<li class="menu-item"><a href="waiter_order.html" th:href="@{~/waiter/showOrder}" class="menu-link">Order</a></li>
+					<li class="menu-item"><a href="waiter_notice.html" th:href="@{~/waiter/notice}" class="menu-link">Notice</a></li>
+					<li class="menu-item"><a href="waiter_menu.html" th:href="@{~/waiter/showMenu}" class="menu-link">Show</a></li>
+					<li class="menu-item"><a href="waiter_pass.html" th:href="@{~/waiter/getDish}" class="menu-link">Get Dish</a></li>
+				</ul>
+
+			</div>
+
+			 <script>
+				   $( "span.menu-ic" ).click(function() {
+					 $( ".navigation ul" ).slideToggle( 300, function() {
+					 // Animation complete.
+					  });
+					 });
+				</script>
+	</div>
+	<ul class=" head-icons wow bounceInRight" data-wow-delay="0.3s">
+		<li type="button" class="btn btn-1 btn-warning"><a href="login.html" th:href="@{~/logout}"> 注销</a></li>
+<!--				 		<li><a href="#"><span class="tw"> </span></a></li>-->
+	</ul>
+	<div class="clearfix"></div>
+</div>
+</div>
+<!--mother grid start here-->
+
+<div class="main-grid-one1"  id="one">
+    <div class="home-banner">
+		<div class="dream-home-bann-main wow bounceInDown" data-wow-delay="0.3s">
+				<h1>Order System</h1>
+				<span class="span-dream-bar"></span>
+				<p>美酒佳肴迎挚友 名楼雅座待高朋</p>
+		</div>
+    </div>
+<!--furniture-->
+	<div class="furniture">
+		<div class="container">
+
+			<div class="furniture-main">
+				<div class="col-md-4 furniture-grid wow bounceInLeft" data-wow-delay="0.3s">
+					<figure>
+						<img src="../static/images/r1.jpg" alt="" class="img_responsive">
+					</figure>
+					<h4><a href="#">Take a trivial example </a></h4>
+					<p>夏朵位于闹中取静的华山路，法式梧桐的点缀让餐厅更显典雅，也更富有异国情调</p>
+					
+				</div>
+				<div class="col-md-4 furniture-grid wow bounceInUp" data-wow-delay="0.3s">
+					<figure>
+						<img src="../static/images/r2.jpg" alt="" class="img_responsive">
+					</figure>
+					<h4><a href="#">Take a trivial example </a></h4>
+					<p>推开餐厅那扇沉甸甸的大门，眼前展开的是一个风格奢华的阔大空间，天花板上华丽的水晶吊灯，每个角度都折射出如梦似幻斑斓彩光。华美的欧式桌椅、小巧精致吧台，都漆成纯白色，处处散发着贵族气息</p>
+				</div>
+				<div class="col-md-4 furniture-grid no-marg wow bounceInRight" data-wow-delay="0.3s">
+					<div class="furni-small-grid">
+					   <div class="furnitu-left">
+					  	  <a href="#"><img src="../static/images/s1.jpg" alt="" class="img-responsive"></a>
+					   </div>
+					   <div class="furnitu-right">
+					  	  <h5><a href="#">These cases are perfectly</a></h5>
+					  	  <p>在另一个手臂上，我们被剥夺了权利。</p>
+					   </div>
+					 <div class="clearfix"> </div>
+					</div>
+					<div class="furni-small-grid">
+					   <div class="furnitu-left">
+					  	  <a href="#"><img src="../static/images/s2.jpg" alt="" class="img-responsive"></a>
+					   </div>
+					   <div class="furnitu-right">
+					  	  <h5><a href="#">These cases are perfectly</a></h5>
+					  	  <p>美味招徕云外客;清香引出月中仙。</p>
+					   </div>
+					 <div class="clearfix"> </div>
+					</div>
+					<div class="furni-small-grid">
+					   <div class="furnitu-left">
+					  	  <a href="#"><img src="../static/images/s3.jpg" alt="" class="img-responsive"></a>
+					   </div>
+					   <div class="furnitu-right">
+					  	  <h5><a href="#">These cases are perfectly</a></h5>
+					  	  <p>人生，经过春，经过夏，经过秋，惊艳了岁月</p>
+					   </div>
+					 <div class="clearfix"> </div>
+					</div>
+					<div class="furni-small-grid">
+					   <div class="furnitu-left">
+					  	 <a href="#"> <img src="../static/images/s4.jpg" alt="" class="img-responsive"></a>
+					   </div>
+					   <div class="furnitu-right">
+					  	  <h5><a href="#">These cases are perfectly</a></h5>
+					  	  <p>人活着真不容易，酸甜苦辣咸，个中滋味都尝一尝，才会长大</p>
+					   </div>
+					 <div class="clearfix"> </div>
+					</div>
+				</div>
+			 <div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+<!--promiss-->
+	<div class="promiss">
+		<div class="container">
+			<div class="promiss-main wow bounceInDown" data-wow-delay="0.3s">
+				<h3>Our Promises and  Values</h3>
+				<p>典型意大利风格的餐厅，装修格调舒适宜人，环境相当不错，还有户外的露天座位提供给喜欢浪漫的客人</p>
+			</div>
+		</div>
+	</div>
+<!---welcome-->
+	<div class="welcome">
+		<div class="container">
+			<div class="welcome-main">
+				<div class="welcome-top">
+					<h3>Welcome</h3>
+				</div>
+				<div class="welcome-bottom">
+					<div class="col-md-6 welcome-left wow bounceInUp" data-wow-delay="0.3s">
+						<h4> 开始点餐</h4>
+						<p>选择你需要的菜品！</p>
+					</div>
+					
+					   <div class="col-md-3 wel-img1 wow bounceInLeft" data-wow-delay="0.3s">
+						   <ul class="welcome-grid gr-welcome ">
+								<li>
+								   <h4 class="zero">开始点餐</h4>
+<!--								   <p class="zero">Lorem ipsum dolor sit amet.</p>-->
+								</li>
+								<li><img class="top" src="../static/images/r4.jpg" alt=""/></li>
+							</ul>
+					   </div>
+						<div class="col-md-3 wel-img2 wow bounceInRight" data-wow-delay="0.3s">
+						  <ul class="welcome-grid ">
+							  <li>
+								  <h4 class="zero">开始点餐</h4>
+								  <!--<p class="zero">Lorem ipsum dolor sit amet.</p>-->
+							  </li>
+								<li><img class="top" src="../static/images/r5.jpg" alt=""/></li>
+							</ul>
+					   </div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--footer end here-->
+<!--    <div class="footer">-->
+<!--		<div class="container">-->
+<!--			<div class="footer-main">-->
+<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
+<!--				<h4>Information</h4>-->
+<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
+<!--				<ul class="social">-->
+<!--					<li><span> </span>sector 21 , main road </li>-->
+<!--					<li class="phone"><span> </span> +71999-56985</li>-->
+<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
+<!--				</ul>-->
+<!--				</div>-->
+<!--				 -->
+<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
+<!--				 	<h4>Newsletter</h4>-->
+<!--				 	<form>-->
+<!--				 		<input type="text"  placeholder="Email Address" required="">-->
+<!--				 		<input type="submit" value="subscribe">-->
+<!--			 	</form>-->
+<!--				 </div>-->
+<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--				 	<ul class="ftr-nav">-->
+<!--				 		<li><a href="index.html">Home</a></li>-->
+<!--						<li><a href="waiter_info.html">About</a></li>-->
+<!--						<li><a href="waiter_order.html">Services</a></li>-->
+<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
+<!--						<li><a href="menu.html">Menu</a></li>-->
+<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
+<!--				 	</ul>-->
+<!--				 </div>-->
+<!--			 <div class="clearfix"> </div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--    </div>-->
+    <div class="copy-right wow shake" data-wow-delay="0.3s">
+		<p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
+    </div>
+</div>
+
+
+
+<!-- animated-css -->
+		<link href="../static/css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="../static/js/wow.min.js"></script>
+		<script>
+		 new WOW().init();
+		</script>
+<!-- animated-css -->
+
+
+</body>
+</html>
