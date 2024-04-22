@@ -3,14 +3,16 @@ package com.ordersystem.controller;
 import com.ordersystem.entity.*;
 import com.ordersystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * (Order)表控制层
@@ -83,7 +85,7 @@ public class WaiterController {
     }
 
     @RequestMapping("notice")
-    public String notice(Model model){
+        public String notice(Model model){
         List<Notice> noticeList = waiterNoticeService.queryAllNotice();
         model.addAttribute("notices",noticeList);
         return "waiter_notice";
@@ -119,49 +121,71 @@ public class WaiterController {
 
     @RequestMapping("makeOrder")//生成订单以及订单详情
     public String makeOrder(String orderId, String table_number, Float sum, HttpSession session){
-        List<OrderItem> lists = (List<OrderItem>)session.getAttribute("list");
+        System.out.println(table_number);
+        HashMap<String, OrderItem> orderItems = (HashMap<String, OrderItem>) session.getAttribute("orderItems");
         String userid = ((User) session.getAttribute("user_session")).getUserid();
         Order order = new Order(orderId,userid,table_number,sum);
         waiterOrderService.createOrder(order);//创建订单
-        for (OrderItem orderItem:lists){
-            String Id = userid+orderId+sum+table_number;
+        for (OrderItem orderItem:orderItems.values()){
+            String Id = UUID.randomUUID().toString();;
             Dish dish = waiterOrderService.queryDishByName(orderItem.getName());
             OrderDetail orderDetail = new OrderDetail(Id,orderId, orderItem.getAmount(),dish.getDishid(),order,dish);
             waiterOrderService.createOrderDetail(orderDetail);//创建订单详情
         }
-        session.removeAttribute("list");
+        session.removeAttribute("orderItems");
         return "redirect:showOrder";
     }
 
 
     @RequestMapping("addDish")
-    public String addDish(String dishId, int amount,HttpSession session){
-        String name = waiterOrderService.addDish(dishId);//返回菜名
-        OrderItem orderItem = new OrderItem(name,amount,dishId);
-        System.out.println(orderItem.getAmount());
-        List<OrderItem> list = new ArrayList<>();
-        List<OrderItem> lists = (List<OrderItem>)session.getAttribute("list");//获得session当中的表
-        if( lists != null){
-            lists.add(orderItem);
-            session.setAttribute("list", lists);
-        }else {
-            list.add(orderItem);
-            session.setAttribute("list", list);
+    public ResponseEntity<Map<String, Object>> addDish(String dishId, int amount, float price, HttpSession session){
+        String name = waiterOrderService.addDish(dishId); // Returns the dish name
+        HashMap<String, OrderItem> orderItems = (HashMap<String, OrderItem>) session.getAttribute("orderItems");
+
+        if (orderItems == null) {
+            orderItems = new HashMap<>();
+            session.setAttribute("orderItems", orderItems);
         }
 
-        return "redirect:showOrder";
+        // Check if the dish is already ordered
+        if (orderItems.containsKey(dishId)) {
+            // If yes, just update the amount
+            OrderItem existingItem = orderItems.get(dishId);
+            existingItem.setAmount(existingItem.getAmount() + amount);
+        } else {
+            // If no, create a new order item and add it to the map
+            OrderItem orderItem = new OrderItem(name, amount, dishId, price);
+            orderItems.put(dishId, orderItem);
+        }
+
+        // 返回更新后的订单列表和总金额
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderItems", orderItems.values());
+        response.put("totalPrice", orderItems.values().stream().mapToDouble(item -> item.getPrice() * item.getAmount()).sum());
+        return ResponseEntity.ok(response);
     }
+
 
     @RequestMapping("deleteDish")
-    public String deleteDish(String dishId, int amount,HttpSession session){
-        String name = waiterOrderService.addDish(dishId);//返回菜名
-        OrderItem orderItem = new OrderItem(name,amount,dishId);
-        System.out.println(orderItem.getAmount());
-        List<OrderItem> lists = (List<OrderItem>)session.getAttribute("list");//获得session当中的表
-        lists.remove(orderItem);
-        session.setAttribute("list", lists);
+    public ResponseEntity<Map<String, Object>> deleteDish(String dishId, int amount, HttpSession session){
+        HashMap<String, OrderItem> orderItems = (HashMap<String, OrderItem>) session.getAttribute("orderItems");
 
-        return "redirect:showOrder";
+        if (orderItems != null) {
+            OrderItem orderItem = orderItems.get(dishId);
+            if (orderItem.getAmount()-amount<=0){
+                orderItems.remove(dishId);
+            }else{
+                orderItem.setAmount(orderItem.getAmount()-amount);
+                orderItems.put(dishId,orderItem);
+            }
+            session.setAttribute("orderItems", orderItems);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderItems", orderItems.values());
+        response.put("totalPrice", orderItems.values().stream().mapToDouble(item -> item.getPrice() * item.getAmount()).sum());
+        return ResponseEntity.ok(response);
     }
+
 
 }

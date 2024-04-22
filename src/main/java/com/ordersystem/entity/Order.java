@@ -12,7 +12,7 @@ import java.util.List;
 public class Order implements Serializable {
     private static final long serialVersionUID = 741156620896375521L;
 
-    private String orderid;
+    private String orderId;
 
     private String userid;
 
@@ -22,24 +22,20 @@ public class Order implements Serializable {
 
     private Integer status;
 
-    public Order(String orderid, String userid, String tableNumber, Float sum){
-        this.orderid=orderid;
+    public Order(String orderId, String userid, String tableNumber, Float sum){
+        this.orderId = orderId;
         this.tableNumber=tableNumber;
         this.userid=userid;
         this.status=0;
         this.sum=sum;
     }
 
-    public Order(){
-
+    public String getOrderId() {
+        return orderId;
     }
 
-    public String getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(String orderid) {
-        this.orderid = orderid;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getUserid() {

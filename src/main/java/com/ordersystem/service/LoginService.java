@@ -15,6 +15,8 @@ public interface LoginService {
 
     int login(String name, String pwd);
 
+    User getUser(String username);
+
 //    boolean logout(User user);
 
 }

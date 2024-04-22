@@ -9,8 +9,9 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `role` int(10) DEFAULT NULL,
   `url_ image` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  CREATE INDEX idx_username ON user(username);
 
-  PRIMARY KEY (`userid`)
 ) ;
 
 -- ----------------------------
@@ -24,7 +25,9 @@ CREATE TABLE `dish` (
   `isRecommend` boolean default false,
   `price` float(100,0) NOT NULL,
   `url_dish` varchar(255) default null,
-  PRIMARY KEY (`dishId`)
+  PRIMARY KEY (`dishId`),
+  CREATE INDEX idx_name ON dish(name);
+
 ) ;
 
 -- ----------------------------
@@ -52,7 +55,11 @@ CREATE TABLE `order` (
   `createTime` varchar(255) DEFAULT NULL,
   `updateTime` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`orderId`),
-  Foreign key (`userId`) REFERENCES user(`userId`)
+  Foreign key (`userId`) REFERENCES user(`userId`),
+  CREATE INDEX idx_userid ON order(userId),
+  CREATE INDEX idx_status ON order(status),
+  CREATE INDEX idx_createTime ON order(createTime);
+
 ) ;
 
 
@@ -69,5 +76,8 @@ CREATE TABLE `order_detail`
     `status`  int(10)  DEFAULT 0,
     PRIMARY KEY (`Id`),
     Foreign key (dishId) REFERENCES dish (dishId),
-    Foreign key (orderId) REFERENCES order (orderId)
+    Foreign key (orderId) REFERENCES order (orderId),
+    CREATE INDEX idx_orderId ON order_detail(orderId),
+    CREATE INDEX idx_dishId ON order_detail(dishId);
+
 ) ;

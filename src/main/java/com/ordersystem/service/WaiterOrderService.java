@@ -16,6 +16,7 @@ public interface WaiterOrderService {
 
     String addDish(String dishid);
 
+    String getDishName(String dishId);
 
     String deleteDish(String dishid);
 

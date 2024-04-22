@@ -19,6 +19,12 @@ public class OrderDetail implements Serializable {
 
     private String dishid;
 
+    private Integer status;
+
+    private  Order order;
+
+    private Dish dish;
+
     public OrderDetail() {
     }
 
@@ -47,13 +53,6 @@ public class OrderDetail implements Serializable {
     public void setDish(Dish dish) {
         this.dish = dish;
     }
-
-    private Integer status;
-
-    private  Order order;
-
-
-    private Dish dish;
 
     public String getId() {
         return id;

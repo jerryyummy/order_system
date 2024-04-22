@@ -25,11 +25,14 @@ public class UserController {
 
 
     @RequestMapping("login")
-    public String login(User user, HttpServletRequest request, HttpSession session){
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        HttpServletRequest request, HttpSession session){
         //调用login方法来验证是否是注册用户
-        int loginType = loginService.login(user.getUserid(),user.getPassword());
+        int loginType = loginService.login(username,password);
         if(loginType!=3){
             //如果验证通过,则将用户信息传到前台
+            User user = loginService.getUser(username);
             request.setAttribute("user",user);
             request.setAttribute("message","登陆成功");
             session.setAttribute("user_session",user);

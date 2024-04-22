@@ -79,7 +79,7 @@
 		   	 	<div class="col-md-4 service-grid wow bounceInLeft" data-wow-delay="0.3s">
 		   	 		<button class="hi-icon hi-icon-archive"><span class="ser2"> </span></button>
 		   	 		<h3>查看总价格</h3>
-		   	 		<p >总价格：<span id="total_price" >0</span></p>
+		   	 		<p >总价格：<span id="total_price" th:text="${totalPrice}">0</span></p>
 		   	 	</div>
 		   	 	<div class="col-md-4 service-grid wow bounceInUp" data-wow-delay="0.3s">
 					<button class="hi-icon hi-icon-archive" onclick="makeOrder()"><span class="ser3"> </span></button>
@@ -98,35 +98,24 @@
 						 <th scope="col">状态</th>
 					 </tr>
 					 </thead>
-					 <tbody>
-					 <tr th:each="item:${session.list}">
-						 <td th:text="${item.getName()}" th:id="'dishName1'+${item.getDishId()}">1</th>
-						 <td th:text="${item.getAmount()}" th:id="'number1'+${item.getDishId()}">Otto</td>
-						 <td><button class="btn btn-danger" th:name="${item.getDishId()}" onclick="cancel(this.getAttribute('name'))">cancel</button></td>
-					 </tr>
+					 <tbody id="orderList">
+						 <tr th:each="entry : ${session.orderItems}">
+							 <td th:text="${entry.value.name}" th:id="'dishName1' + ${entry.key}"></td>
+							 <td th:text="${entry.value.amount}" th:id="'number1' + ${entry.key}"></td>
+							 <td>
+								 <button class="btn btn-danger"
+										 th:attr="data-name=${entry.key}, data-amount=${entry.value.amount}"
+										 onclick="cancel(this)">
+									 Cancel
+								 </button>
+							 </td>
+						 </tr>
 					 </tbody>
 				 </table>
-<!--		   	 	<div class="ser-mid-imgs">-->
-<!--			   	 	<div class="col-md-6 ser-mid-lft-img1 wow bounceInLeft" data-wow-delay="0.3s">-->
-<!--			   	 		<img src="../static/images/plat3.png" alt="">-->
-<!--			   	 	</div>-->
-<!--			   	 	<div class="col-md-6 ser-mid-rit-img2 wow bounceInRight" data-wow-delay="0.3s">-->
-<!--			   	 		<img src="../static/images/plat2.png" alt="">-->
-<!--			   	 	</div>-->
-<!--			   	  <div class="clearfix"> </div>-->
-<!--		   	 	</div>-->
-<!--		   	     <h4>voluptatem accusantium doloremque laudantium</h4>-->
-<!--		   	     <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>-->
 		   	 </div>
 		   	 <div class="spl-offers">
 		   	 	<div class="col-md-8 spl-left">
 		   	 		<h3>今日 特供</h3>
-<!--		   	 	    <div class="col-md-6 spl-left-img wow bounceInLeft" data-wow-delay="0.3s">-->
-<!--		   	 	    	<a href="#"><img src="../static/images/barger.png" alt=""></a>-->
-<!--		   	 	    </div>-->
-<!--		   	 	    <div class="col-md-6 spl-left-text wow bounceInDown" data-wow-delay="0.3s">-->
-<!--		   	 	    	<p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>-->
-<!--		   	 	    </div>-->
 					<div id="carouselExampleInterval" class="carousel slide spl-left col-md-8" data-ride="carousel">
 						<div class="carousel-inner">
 							<div class="carousel-item active" data-interval="2000">
@@ -162,15 +151,6 @@
 		   	 	<div class="col-md-4 spl-right wow bounceInRight" data-wow-delay="0.3s">
 		   	 		<h3>Something To Say</h3>
 					<p>Enjoy yourself.</p>
-<!--		   	 		  <ul>-->
-<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
-<!--		   	 		  	<li><a href="#">Lorem ipsum dolor sit amet</a></li>-->
-<!--		   	 		  	<li><a href="#">Consectetur adipiscing elit</a></li>-->
-<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
-<!--		   	 		  	<li><a href="#">sed eiusmod tempor incididunt</a></li>-->
-<!--		   	 		  	<li><a href="#">On the other hand denounce</a></li>-->
-<!--						<li><a href="#">sed eiusmod tempor incididunt</a></li>-->
-<!--		   	 		  </ul>-->
 		   	 	</div>
 		   	  <div class="clearfix"> </div>
 		   	 </div>
@@ -192,105 +172,20 @@
 					   </tr>
 					   </thead>
 					   <tbody>
-					   <tr th:each="item: ${dishlist}">
-						   <th scope="row" th:text="${item.getName()}" th:id="'dishName'+${item.getDishid()}">宫保鸡丁</th>
-						   <td th:text="${item.getPrice()}" th:id="'price'+${item.getDishid()}">25.0</td>
-						   <td ><input th:id="'number'+${item.getDishid()}" type="number" ></td>
-						   <td><button class="btn btn-success" th:name="${item.getDishid()}" onclick="order(this.getAttribute('name'))">点菜</button></td>
+					   <tr th:each="item : ${dishlist}">
+						   <th scope="row" th:text="${item.name}" th:id="'dishName'+${item.dishid}">宫保鸡丁</th>
+						   <td th:text="${item.price}" th:id="'price'+${item.dishid}">25.0</td>
+						   <td><input th:id="'buy-number'+${item.dishid}" type="number"></td>
+						   <td><button class="btn btn-success" th:data-dishid="${item.dishid}" th:data-price="${item.price}" onclick="order(this)">点菜</button></td>
 					   </tr>
 					   </tbody>
 				   </table>
-<!--				   <nav aria-label="Page navigation example">-->
-<!--					   <ul class="pagination justify-content-center">-->
-<!--						   <li class="page-item disabled">-->
-<!--							   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
-<!--						   </li>-->
-<!--						   <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--						   <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--						   <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--						   <li class="page-item">-->
-<!--							   <a class="page-link" href="#">Next</a>-->
-<!--						   </li>-->
-<!--					   </ul>-->
-<!--				   </nav>-->
+
 			   </div>
-			   <!--				<div class="addition-main">-->
-<!--					<div class="col-md-6 addition-left wow bounceInRight" data-wow-delay="0.3s">-->
-<!--						<div class="cantin">-->
-<!--							<div class="cantin-icons">-->
-<!--								<span class="ser-icon1"> </span>-->
-<!--							</div>	-->
-<!--							<div class="cantin-text">-->
-<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
-<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
-<!--							</div>-->
-<!--						  <div class="clearfix"> </div>-->
-<!--						</div>-->
-<!--						<div class="cantin">-->
-<!--							<div class="cantin-icons">-->
-<!--								<span class="ser-icon2"> </span>-->
-<!--							</div>	-->
-<!--							<div class="cantin-text">-->
-<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
-<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
-<!--							</div>-->
-<!--						  <div class="clearfix"> </div>-->
-<!--						</div>-->
-<!--						<div class="cantin">-->
-<!--							<div class="cantin-icons">-->
-<!--								<span class="ser-icon3"> </span>-->
-<!--							</div>	-->
-<!--							<div class="cantin-text">-->
-<!--								<h4><a href="detail.html">voluptatibus maiores perferendis</a></h4>-->
-<!--								<p>Doloribus repellat voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.</p>-->
-<!--							</div>-->
-<!--						  <div class="clearfix"> </div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="col-md-6 addition-right wow bounceInLeft" data-wow-delay="0.3s">-->
-<!--						<a href="detail.html"><img src="../static/images/ad.jpg" alt="" class="img-responsive"></a>-->
-<!--					</div>-->
-<!--				<div class="clearfix"> </div>-->
-<!--			</div>-->
 		 </div>
 	   </div>
 	    </div>
 
-<!--footer end here-->
-<!--    <div class="footer">-->
-<!--		<div class="container">-->
-<!--			<div class="footer-main">-->
-<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
-<!--				<h4>Information</h4>-->
-<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
-<!--				<ul class="social">-->
-<!--					<li><span> </span>sector 21 , main road </li>-->
-<!--					<li class="phone"><span> </span> +71999-56985</li>-->
-<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
-<!--				</ul>-->
-<!--				</div>-->
-<!--				 -->
-<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
-<!--				 	<h4>Newsletter</h4>-->
-<!--				 	<form>-->
-<!--				 		<input type="text"  placeholder="Email Address" required="">-->
-<!--				 		<input type="submit" value="subscribe">-->
-<!--			 	</form>-->
-<!--				 </div>-->
-<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
-<!--				 	<ul class="ftr-nav">-->
-<!--				 		<li><a href="index.html">Home</a></li>-->
-<!--						<li><a href="waiter_info.html">About</a></li>-->
-<!--						<li><a href="waiter_order.html">Services</a></li>-->
-<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
-<!--						<li><a href="menu.html">Menu</a></li>-->
-<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
-<!--				 	</ul>-->
-<!--				 </div>-->
-<!--			 <div class="clearfix"> </div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--    </div>-->
     <div class="copy-right wow shake" data-wow-delay="0.3s">
 		<p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
     </div>
@@ -303,62 +198,98 @@
 	<script src="../static/js/wow.min.js"></script>
 		<script>
 		 new WOW().init();
-		 function order(dishId) {//点菜
-		 	var name = $("#dishName"+dishId).val();
-			var amount = $('#number'+dishId).val();
-			var dishid = dishId;
-			var price = $("#price"+dishId).val();
-			var total = amount*price;
-			$.ajax({
+		 function order(button) {
+			 var dishId = button.getAttribute('data-dishid');
+			 var price = button.getAttribute('data-price');  // 从数据属性获取价格
+			 var amount = document.getElementById('buy-number' + dishId).value;  // 获取数量
+			 if (amount <= 0 || isNaN(amount)) {
+				 alert("Please enter a valid amount");
+				 return;  // Stop the function if validation fails
+			 }
+
+			 $.ajax({
 				 url: '/waiter/addDish',
 				 type: 'post',
 				 data: {
-						amount: amount,
-						dishId: dishid
+					 amount: amount,
+					 dishId: dishId,
+					 price: price
 				 },
-				 success: function () {
-				 	location.href="addDish?amount="+amount+'&dishId='+dishId;
+				 success: function (response) {
+					 alert("Dish added successfully!");
+					 // 更新页面的订单列表和总价格
+					 updateOrderList(response.orderItems);
+					 updateTotalPrice(response.totalPrice);
 				 },
 				 error: function () {
-					 alert("error")
+					 alert("Error in adding dish");
 				 }
 			 });
 		 }
 
-		 function cancel(dishId){//取消
-			 var name = $("#dishName1"+dishId).val();
-			 var amount = $('#number1'+dishId).val();
-			 console.log(name);
+		 function cancel(button) {
+			 var dishId = button.getAttribute('data-name');
+			 var amount = button.getAttribute('data-amount');
+			 alert('Canceling dish: ' + dishId + ' with amount: ' + amount);
+
+			 if (amount === '' || isNaN(amount) || parseInt(amount, 10) <= 0) {
+				 alert("Please enter a valid amount");
+				 return;
+			 }
+
 			 $.ajax({
 				 url: '/waiter/deleteDish',
 				 type: 'post',
-				 data: {
-					 amount: amount,
-					 dishId: dishId
-				 },
-				 success: function () {
-					 location.href="deleteDish?amount="+amount+'&dishId='+dishId;
+				 data: { amount: parseInt(amount, 10), dishId: dishId },
+				 success: function (response) {
+					 alert("Dish cancelled successfully!");
+					 // 更新页面的订单列表和总价格
+					 updateOrderList(response.orderItems);
+					 updateTotalPrice(response.totalPrice);
 				 },
 				 error: function () {
-					 alert("error")
+					 alert("Error in cancelling dish");
 				 }
 			 });
 		 }
 
+		 function updateOrderList(orderItems) {
+			 var orderListHtml = '';
+			 orderItems.forEach(function(item) {
+				 // 创建每一行的HTML，注意这里我们直接使用对象属性，不需要额外的ID转换
+				 orderListHtml += '<tr>' +
+						 '<td>' + item.name + '</td>' +
+						 '<td>' + item.amount + '</td>' +
+						 '<td>' +
+						 '<button class="btn btn-danger" data-name="' + item.dishId + '" data-amount="' + item.amount +
+						 '" onclick="cancel(this)">取消</button>' +
+						 '</td>' +
+						 '</tr>';
+			 });
+			 $('#orderList').html(orderListHtml);  // 直接更新tbody的HTML
+		 }
+
+		 function updateTotalPrice(totalPrice) {
+			 $('#total_price').text(totalPrice.toFixed(2));  // 更新显示的总价格
+		 }
+
 		 function makeOrder() {
-		 	var total_price = $('#total_price').val();
+		 	var sum= $('#total_price').val();
 		 	var table_number = $('#table_number').val();
-		 	var orderId = total_price+table_number;
+			var orderId = crypto.randomUUID();  // 生成一个随机UUID作为订单ID
+
+
 			 $.ajax({
 				 url: '/waiter/makeOrder',
 				 type: 'post',
 				 data: {
-					 total_price: total_price,
+					 sum: sum,
 					 table_number: table_number,
 					 orderId: orderId
 				 },
 				 success: function () {
-					 location.href="makeOrder?sum="+total_price+'&orderId='+orderId+'&table_number='+table_number;
+					 alert("order has been submitted!")
+					 location.reload();
 				 },
 				 error: function () {
 					 alert("error")

@@ -21,6 +21,16 @@
         where userId = #{userid}
     </select>
 
+    <select id="queryByName" resultMap="UserMap">
+        select userId,
+               username,
+               password,
+               role,
+               url_image
+        from order_system.user
+        where username = #{username}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select userId,

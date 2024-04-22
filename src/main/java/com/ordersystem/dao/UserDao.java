@@ -26,7 +26,7 @@ public interface UserDao {
      */
     List<User> queryAllByLimit();
 
-
+    User queryByName(String name);
     /**
      * 通过实体作为筛选条件查询
      *

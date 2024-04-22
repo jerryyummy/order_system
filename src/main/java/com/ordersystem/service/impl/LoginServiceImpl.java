@@ -23,9 +23,9 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public int login(String id, String pwd) {
+    public int login(String name, String pwd) {
 
-        User user = userDao.queryById(id);
+        User user = userDao.queryByName(name);
         if (user.getPassword().equals(pwd)){
             if (user.getRole().equals("0")){
                 return 0;
@@ -41,6 +41,11 @@ public class LoginServiceImpl implements LoginService {
             return 3;
         }
 
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userDao.queryByName(username);
     }
 
 //    @Override

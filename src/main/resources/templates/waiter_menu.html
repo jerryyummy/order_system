@@ -119,78 +119,12 @@
 					 <p th:text="${dish.getIntroduce()}">On the other hand, we denounce with righteous indignation and dislike men who</p>
 					 <button class="btn btn-primary" th:name="${dish.getDishid()}" onclick="getDetail(this.getAttribute('name'))">查看详情</button>
 				 </div>
-
-<!--				 <div class="col-md-4 menu-grid wow bounceInDown" data-wow-delay="0.3s">-->
-<!--					 <a href="waiter_detail.html"><img src="../static/images/p2.jpg" alt="" class="img-responsive"></a>-->
-<!--					 <h4>Lorem &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; $50</h4>-->
-<!--					 <p>On the other hand, we denounce with righteous indignation and dislike men who</p>-->
-<!--				 </div>-->
-
-<!--				 <div class="col-md-4 menu-grid wow bounceInDown" data-wow-delay="0.3s">-->
-<!--					 <a href="waiter_detail.html"><img src="../static/images/p3.jpg" alt="" class="img-responsive"></a>-->
-<!--					 <h4>Lorem &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; $50</h4>-->
-<!--					 <p>On the other hand, we denounce with righteous indignation and dislike men who</p>-->
-<!--				 </div>-->
-
-<!--				 <div class="col-md-4 menu-grid wow bounceInDown" data-wow-delay="0.3s">-->
-<!--					 <a href="waiter_detail.html"><img src="../static/images/p4.jpg" alt="" class="img-responsive"></a>-->
-<!--					 <h4>Lorem &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; $50</h4>-->
-<!--					 <p>On the other hand, we denounce with righteous indignation and dislike men who</p>-->
-<!--				 </div>-->
-
-<!--				 <div class="col-md-4 menu-grid wow bounceInDown" data-wow-delay="0.3s">-->
-<!--					 <a href="waiter_detail.html"><img src="../static/images/p5.jpg" alt="" class="img-responsive"></a>-->
-<!--					 <h4>Lorem &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; $50</h4>-->
-<!--					 <p>On the other hand, we denounce with righteous indignation and dislike men who</p>-->
-<!--				 </div>-->
-
-<!--				 <div class="col-md-4 menu-grid wow bounceInDown" data-wow-delay="0.3s">-->
-<!--					 <a href="waiter_detail.html"><img src="../static/images/p6.jpg" alt="" class="img-responsive"></a>-->
-<!--					 <h4>Lorem &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; $50</h4>-->
-<!--					 <p>On the other hand, we denounce with righteous indignation and dislike men who</p>-->
-<!--				 </div>-->
 					<div class="clearfix"> </div>
 		   	   </div>
 		    </div>			    	     
 		</div>
 		  </div>
 
-<!--footer-->
-<!--footer end here-->
-<!--    <div class="footer">-->
-<!--		<div class="container">-->
-<!--			<div class="footer-main">-->
-<!--			<div class="col-md-4 amet-sed wow bounceInDown" data-wow-delay="0.3s">-->
-<!--				<h4>Information</h4>-->
-<!--				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet .</p>-->
-<!--				<ul class="social">-->
-<!--					<li><span> </span>sector 21 , main road </li>-->
-<!--					<li class="phone"><span> </span> +71999-56985</li>-->
-<!--					<li class="mail"><a href="mailto:contact@Example.com"><span> </span> contact@Example.com</a></li>-->
-<!--				</ul>-->
-<!--				</div>-->
-<!--				 -->
-<!--				 <div class="col-md-5 ftr-grid wow bounceInUp" data-wow-delay="0.3s">-->
-<!--				 	<h4>Newsletter</h4>-->
-<!--				 	<form>-->
-<!--				 		<input type="text"  placeholder="Email Address" required="">-->
-<!--				 		<input type="submit" value="subscribe">-->
-<!--			 	</form>-->
-<!--				 </div>-->
-<!--				 <div class="col-md-3 ftr-grid wow bounceInLeft" data-wow-delay="0.3s">-->
-<!--				 	<ul class="ftr-nav">-->
-<!--				 		<li><a href="index.html">Home</a></li>-->
-<!--						<li><a href="waiter_info.html">About</a></li>-->
-<!--						<li><a href="waiter_order.html">Services</a></li>-->
-<!--						<li><a href="waiter_notice.html">Short codes</a></li>-->
-<!--						<li><a href="menu.html">Menu</a></li>-->
-<!--						<li><a href="waiter_pass.html">Contact</a></li>-->
-<!--				 	</ul>-->
-<!--				 </div>-->
-<!--			 <div class="clearfix"> </div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--    </div>-->
     <div class="copy-right wow shake" data-wow-delay="0.3s">
 		<p>© 2021 编程实训 | Design by   <a href="#" target="_blank" title="name">游赟</a> </p>
     </div>
@@ -204,7 +138,6 @@
 		 new WOW().init();
 
 		 function  getDetail(dishId){
-		 	var dishId = dishId;
 			 $.ajax({
 				 url: '/waiter/getDetail',
 				 type: 'get',

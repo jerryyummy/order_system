@@ -65,9 +65,9 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="orderid" useGeneratedKeys="true">
-        insert into order_system.order(userId, table_number, sum, status)
-        values (#{userid}, #{tableNumber}, #{sum}, 0)
+    <insert id="insert" keyProperty="orderId" useGeneratedKeys="true">
+        insert into order_system.order(orderId, userId, table_number, sum, status)
+        values (#{orderId}, #{userid}, #{tableNumber}, #{sum}, 0)
     </insert>
 
 <!--    <insert id="insertBatch" keyProperty="orderid" useGeneratedKeys="true">-->
@@ -82,8 +82,8 @@
 <!--    <insert id="insertOrUpdateBatch" keyProperty="orderid" useGeneratedKeys="true">-->
 <!--        insert into order_system.order(userId, table_number, sum, status, createTime, updateTime)-->
 <!--        values-->
-<!--        <foreach collection="entities" item="entity" separator=",">-->
-<!--            (#{entity.userid}, #{entity.tableNumber}, #{entity.sum}, #{entity.status}, #{entity.createtime},-->
+<!--        <foreach collection="entities" em="entity" separator=",">-->
+    <!--            (#{entity.userid}, #{entityit.tableNumber}, #{entity.sum}, #{entity.status}, #{entity.createtime},-->
 <!--            #{entity.updatetime})-->
 <!--        </foreach>-->
 <!--        on duplicate key update-->

@@ -72,8 +72,9 @@ public class AdminController {
         }
 
         @RequestMapping("info")
-        public String  showInfo(Model model, HttpSession session){
+        public String showInfo(Model model, HttpSession session){
                 User user = (User) session.getAttribute("user_session");
+                System.out.println(user.getRole());
                 model.addAttribute("user",user);
                 return "admin_info";
         }

@@ -53,6 +53,12 @@ public class WaiterOrderServiceImpl implements WaiterOrderService {
     }
 
     @Override
+    public String getDishName(String dishId) {
+        Dish dish = dishDao.queryById(dishId);
+        return dish.getName();
+    }
+
+    @Override
     public String deleteDish(String dishId) {
         Dish dish = dishDao.queryById(dishId);
         return dish.getName();
